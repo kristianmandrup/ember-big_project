@@ -126,7 +126,7 @@ App.deferReadiness()
 
 ```
 
-## app/app_loader_.js
+## app/app_loader.js
 
 Responsible for loading all the Ember app files
 
@@ -186,7 +186,7 @@ $ ->
   App.Authentication.alwaysSendCsrfToken
 ```
 
-For Sorcery integration:
+For [sorcery](https://github.com/NoamB/sorcery) rails auth integration:
 
 ```ruby
 # config/initializers/sorcery.rb
@@ -194,7 +194,7 @@ For Sorcery integration:
 Rails.application.config.sorcery.configure do |config|
   user.remember_me_httponly = false
 end
-``
+```
 
 ## Conventions
 
