@@ -4,7 +4,7 @@ require 'fileutils'
 module EmberProj
   module Generators
     class BootstrapGenerator < Rails::Generators::Base
-      class_option :csv, type: :boolean, default: true,
+      class_option :csv, type: :boolean, default: false,
                    desc: 'Add client side validations integration'
 
       class_option :emblem, type: :boolean, default: false,
@@ -13,12 +13,34 @@ module EmberProj
       class_option :auth, type: :array, default: [],
                    desc: 'Authentication libraries to use (oauth2, auth)'
 
+      class_option :bundle, type: :boolean, default: false,
+                   desc: 'Do not bundle gems unless absolutely required!'
+
       TPL_PATH = File.expand_path('../templates', __FILE__)
 
       source_root TPL_PATH
 
       def skeleton
         directory "app", "app/assets/javascripts/app", recursive: true
+
+        app_directories.each do |app_dir|
+          src = "app/#{app_dir}"
+          target = "app/assets/javascripts/app/#{app_dir}"
+
+          directory src, target, recursive: true
+
+          sub_dirs.each do |sub_dir|
+            sub_src = File.join(src, sub_dir)
+
+            full_sub_path = File.join(TPL_PATH, sub_src)
+
+            if File.directory? full_sub_path
+              sub_target = File.join(target, sub_dir)
+              directory sub_src, sub_target, recursive: true 
+            end
+          end
+        end
+
         copy_file "application.js.coffee", (js_path(application) + '.coffee')
       end
 
@@ -30,9 +52,17 @@ module EmberProj
 
         # remove default application.js file 
         # replaced by coffee version supplied by this gem!
-        say "Attempting cleanup...", :green
+        say "Cleanup...", :green
 
-        remove_file js_path('application')
+        if File.exist? Rails.root.join js_path('.js/.coffee')
+          # Somehow I can't seem to get rid of this file!!!
+          remove_file js_path('.js/.coffee')
+        end
+
+        if File.exist? Rails.root.join js_path('.js/.coffee')
+          # remove old application.js manifest
+          remove_file js_path('application')
+        end
       end
 
       def authentications
@@ -60,9 +90,12 @@ module EmberProj
       end
 
       def bundle_all
-        bundle_gems!
-
-        invoke "client_side_validations:ember:install" if csv?
+        if csv?
+          bundle_gems!
+          invoke "client_side_validations:ember:install" 
+        else
+          bundle_gems! if bundle?
+        end
       end        
 
       def notices
@@ -76,10 +109,28 @@ module EmberProj
 
       include EmberProj::GemHelper
 
+      def sub_dirs
+        %w{locales mixins extensions shortcuts}
+      end
+
+      def bundle?
+        options[:bundle]
+      end
+
+      # TODO: allow customization - which to include/exclude!
+      def app_directories
+        %w{authentication config controllers helpers lib mixins models routes state_managers stores templates views}
+      end
+
       attr_reader :auth_notices
 
       def auth_notices!
-        say "Authentication::", :green
+        if auth_notices.empty?
+          say "Authentication: was not configured", :green
+          return
+        end
+
+        say "Authentication:", :green
         say auth_notices.join("\n"), :green
         say ""
       end
@@ -147,11 +198,8 @@ module EmberProj
       end
 
       def move_it! src, target
-        unless File.exist? src
-          say "No file found: #{strip_front src}"
-          return
-        end
-
+        return unless File.exist? src
+        
         say_status :move, "#{src} -> #{target}"
 
         FileUtils.mv src, target

@@ -18,16 +18,21 @@ Or install it yourself as:
 
 ## Usage
 
+*Important!!*
+
+This bootstrap generators expects that you have set up your Ember project using `ember:bootstrap` or similar generator. Before you execute `ember_proj:bootstrap`, please make sure you have comitted you project to version control, so you go revert in case you need to.
+
+Command:
+
     $ rails g ember_proj:bootstrap
 
-Help!! (see list of options available):
+Help!? (see list of options available):
 
     $ rails g ember_proj:bootstrap --help
 
-Example: add oauth2 and emblem
+Example: add oauth2 and emblem templating ;)
 
-    $ rails g ember_proj:bootstrap --auth --emblem
-
+    $ rails g ember_proj:bootstrap --auth oauth2 --emblem
 
 ## Ember app structure
 
@@ -164,6 +169,12 @@ You can then make custom extensions to your models, after they have applied what
 And so on ...
 
 ## Vendor libs included
+
+These vendor libs can be required directly in your `application.js.coffee`. 
+
+Alternatively create a `vendor.js.coffee` which you require from `application.js.coffee`. 
+
+Note: Some vendor libs will need to be required after `require app/app_loader`, if they hook into the Application classes you have defined (f.ex `rails.validations.ember` lib).
 
 * [ember-formbuilder](https://github.com/luan/ember-formbuilder)
 * [ember-easyForm](https://github.com/dockyard/ember-easyForm)
