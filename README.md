@@ -100,7 +100,7 @@ Proposed (recommended) app structure for large Ember app.
 
 ## application.js
 
-```javascript
+```coffeescript
 # application.js
 
 #= require modernizr
@@ -130,7 +130,7 @@ App.deferReadiness()
 
 Responsible for loading all the Ember app files
 
-```javascript
+```coffeescript
 # app/app_loader_.js
 
 #= require_self
@@ -161,11 +161,32 @@ You can then make custom extensions to your models, after they have applied what
 
 Example:
 
-```javascript
+```coffeescript
 # models.js
 #= require_tree models/mixins
 #= require_tree models
 #= require_tree models/extensions
+```
+
+## Basics included
+
+An `App.Authentication` class with a `alwaysSendCsrfToken` method (see http://blog.waymondo.com/2012-12-18-ember-dot-js-and-rails-authentication-gotchas/).
+
+To add CSRF token protection, simply add the following:
+
+```coffeescript
+$ ->
+  App.Authentication.alwaysSendCsrfToken
+```
+
+For Sorcery integration:
+
+```ruby
+# config/initializers/sorcery.rb
+
+Rails.application.config.sorcery.configure do |config|
+  user.remember_me_httponly = false
+end
 ```
 
 ## Vendor libs included

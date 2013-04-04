@@ -132,7 +132,11 @@ module EmberProj
 
         say "Authentication:", :green
         say auth_notices.join("\n"), :green
-        say ""
+        say %q{Also see: 
+http://blog.waymondo.com/2012-12-18-ember-dot-js-and-rails-authentication-gotchas/
+http://stackoverflow.com/questions/13123839/ember-js-how-to-handle-session
+http://jsfiddle.net/brundage/dYEJe/
+}
       end
 
       def auth_notices
