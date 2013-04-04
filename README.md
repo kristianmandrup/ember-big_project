@@ -30,9 +30,9 @@ Help!? (see list of options available):
 
     $ rails g ember_proj:bootstrap --help
 
-Example: add oauth2 and emblem templating ;)
+Example: add ember-auth basic authentication and emblem templating ;)
 
-    $ rails g ember_proj:bootstrap --auth oauth2 --emblem
+    $ rails g ember_proj:bootstrap --auth ember-auth --emblem
 
 ## Ember app structure
 
@@ -113,7 +113,7 @@ Proposed (recommended) app structure for large Ember app.
 #= require ember-formBuilder
 #= require bootstrap
 
-#= require app/_loader_
+#= require app/app_loader
 
 #= require rails.validations
 #= require rails.validations.ember
@@ -190,6 +190,14 @@ Distros:
 
 
 If you find one or more of these vendor libs are outdated, please make a patch with the updated lib and send me a pull request! Thanks :)
+
+## Test setup
+
+For easy test setup of your project, try using the [ember-konacha-rails](https://github.com/kristianmandrup/ember-konacha-rails) gem ;)
+
+TODO: In the future Test setup is likely to be integrated directly in this gem!
+
+Also look at [ember-tools](https://github.com/rpflorence/ember-tools) for more tooling!!
 
 ## Contributing
 
