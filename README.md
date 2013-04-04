@@ -1,6 +1,6 @@
-# Ember::BigProject
+# Ember BigProject
 
-Create a sensible and extensible Ember project structure for larger projects ;)
+Create a sensible and extensible Ember project structure for big projects ;)
 
 ## Installation
 

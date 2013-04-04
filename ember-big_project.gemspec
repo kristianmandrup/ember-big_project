@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Ember::BigProject::VERSION
   spec.authors       = ["Kristian Mandrup"]
   spec.email         = ["kmandrup@gmail.com"]
-  spec.description   = %q{Configure Rails assets for big Ember project}
+  spec.description   = %q{Configure Rails assets structure for a big Ember project}
   spec.summary       = %q{Creates a more refined Ember project structure}
   spec.homepage      = "https://github.com/kristianmandrup/ember-big_project"
   spec.license       = "MIT"
