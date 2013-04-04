@@ -1,7 +1,18 @@
 module EmberProj
   module GemHelper   
+    def add_gem name
+      gem name unless has_gem? name
+    end
+
     def bundle_gems!
+      return if bundled?
+
       bundle_command 'install'
+      @bundled = true
+    end
+
+    def bundled?
+      @bundled == true
     end
 
     # File railties/lib/rails/generators/app_base.rb, line 241

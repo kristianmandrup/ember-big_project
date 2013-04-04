@@ -16,6 +16,10 @@ module EmberProj
       class_option :bundle, type: :boolean, default: false,
                    desc: 'Do not bundle gems unless absolutely required!'
 
+      class_option :konacha, type: :boolean, default: false,
+                   desc: 'Configure konacha test setup :)'
+
+
       TPL_PATH = File.expand_path('../templates', __FILE__)
 
       source_root TPL_PATH
@@ -46,6 +50,7 @@ module EmberProj
 
       def move_ember_files
         say "Moving existing ember files...", :green
+
         move_to_app 'views/application_view', 'controllers/application_controller'
         move 'store', 'app/stores/store'
         move 'router', 'app/routes/router'
@@ -71,22 +76,30 @@ module EmberProj
         validate_auth! 
         use_auth_gems.each do |name|
           auth_notice name
-
-          gem name unless has_gem? name
+          add_gem name
         end
       end
 
       def emblem
         return unless emblem?
-        gem 'emblem-rails' unless has_gem? 'emblem-rails'
+        add_gem 'emblem-rails'
 
         say "Note: Emblem templates have the form: my_template.js.emblem", :green
       end
 
       def client_side_validations
         return unless csv?
-        gem 'client_side_validations' unless has_gem? 'client_side_validations'
-        gem 'client_side_validations-ember' unless has_gem? 'client_side_validations-ember'
+        add_gem 'client_side_validations'
+        add_gem 'client_side_validations-ember'
+      end
+
+      def konacha_test_setup
+        return unless konacha?
+
+        add_gem 'ember-konacha-rails'
+
+        bundle_gems!
+        invoke "ember_konacha:install"         
       end
 
       def bundle_all

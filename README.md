@@ -212,6 +212,8 @@ App.Models.CoolModelExt = DS.Model.extend
     console.log "Awesome cool #{@coolnessFactor} :)"
 ```
 
+Also see this article: http://techiferous.com/2012/05/experimenting-with-the-architecture-of-ember-js/ on how to scale the architecture for big Ember projects.
+
 ## Vendor libs included
 
 These vendor libs can be required directly in your `application.js.coffee`. 
