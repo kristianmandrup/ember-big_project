@@ -168,6 +168,13 @@ Example:
 #= require_tree models/extensions
 ```
 
+## Test setup
+
+For easy test setup of your project, you can use the generators supplied by the [ember-konacha-rails](https://github.com/kristianmandrup/ember-konacha-rails) gem. 
+
+The `ember_proj:boostrap` generator has a `--konacha` option, which when included will setup the project with a default konacha setup. To customize this test setup run the `ember_konacha:install` generator with specific options.
+
+
 ## Basics included
 
 An `App.Authentication` class with a `alwaysSendCsrfToken` method (see http://blog.waymondo.com/2012-12-18-ember-dot-js-and-rails-authentication-gotchas/).
@@ -238,13 +245,7 @@ If you find one or more of these vendor libs are outdated, please make a patch w
 
 Also let me know of other vendor libs/tools that you think would make a useful addition!
 
-## Test setup
-
-For easy test setup of your project, try using the [ember-konacha-rails](https://github.com/kristianmandrup/ember-konacha-rails) gem ;)
-
-TODO: In the future Test setup is likely to be integrated directly in this gem!
-
-Also look at [ember-tools](https://github.com/rpflorence/ember-tools) for more tooling!!
+Check out [ember-tools](https://github.com/rpflorence/ember-tools) for more tools and scaffold generators!!
 
 ## Contributing
 
