@@ -221,6 +221,10 @@ App.Models.CoolModelExt = DS.Model.extend
 
 Also see this article: http://techiferous.com/2012/05/experimenting-with-the-architecture-of-ember-js/ on how to scale the architecture for big Ember projects.
 
+For a detailed example on setting up a project with authentication, see:
+
+http://avitevet.blogspot.com.es/2012/11/ember-rails-devise-token-authentication.html
+
 ## Vendor libs included
 
 These vendor libs can be required directly in your `application.js.coffee`. 
