@@ -1,0 +1,5 @@
+module Ember
+  module BigProject
+    VERSION = "0.0.1"
+  end
+end
