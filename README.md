@@ -100,7 +100,7 @@ Proposed (recommended) app structure for large Ember app.
 
 ## application.js
 
-```
+```javascript
 # application.js
 
 #= require modernizr
@@ -151,13 +151,15 @@ Responsible for loading all the Ember app files
 
 ```
 
-## models.js
+## Index files
 
-Index files such as 'models.js' are useful in order to quickly change the load order of files or add/remove files to be included in the app ;)
+Use index files such as `models.js` to quickly change the load order of files or add/remove files to be included in the app ;)
 
 You will likley have specific mixins for models, that should be loaded before the models they are mixed into - the reason for this pattern.
 
 You can then make custom extensions to your models, after they have applied whatever mixins they need or directly extend built-in Ember classes ;)
+
+Example:
 
 ```javascript
 # models.js
@@ -165,8 +167,6 @@ You can then make custom extensions to your models, after they have applied what
 #= require_tree models
 #= require_tree models/extensions
 ```
-
-And so on ...
 
 ## Vendor libs included
 
@@ -183,13 +183,14 @@ Note: Some vendor libs will need to be required after `require app/app_loader`, 
 
 See also: [formBuilder](http://luansantos.com/2012/03/19/introducing-ember-formbuilder/)
 
-Distros:
+lib distros (pre-compiled):
 
 * [validations](https://github.com/dockyard/ember-builds/tree/master/validations)
 * [easyForm](https://github.com/dockyard/ember-builds/tree/master/easyForm)
 
-
 If you find one or more of these vendor libs are outdated, please make a patch with the updated lib and send me a pull request! Thanks :)
+
+Also let me know of other vendor libs/tools that you think would make a useful addition!
 
 ## Test setup
 
