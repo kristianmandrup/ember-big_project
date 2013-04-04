@@ -8,7 +8,7 @@
 #= require ember-formBuilder
 #= require bootstrap
 
-#= require app/_loader_
+#= require app/app_loader
 
 #= require rails.validations
 #= require rails.validations.ember

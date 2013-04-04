@@ -13,14 +13,26 @@ module EmberProj
       class_option :auth, type: :array, default: [],
                    desc: 'Authentication libraries to use (oauth2, auth)'
 
+      TPL_PATH = File.expand_path('../templates', __FILE__)
+
+      source_root TPL_PATH
+
       def skeleton
-        directory "app", "app/assets/javascripts/app"
+        directory "app", "app/assets/javascripts/app", recursive: true
+        copy_file "application.js.coffee", (js_path(application) + '.coffee')
       end
 
       def move_ember_files
+        say "Moving existing ember files...", :green
         move_to_app 'views/application_view', 'controllers/application_controller'
         move 'store', 'app/stores/store'
         move 'router', 'app/routes/router'
+
+        # remove default application.js file 
+        # replaced by coffee version supplied by this gem!
+        say "Attempting cleanup...", :green
+
+        remove_file js_path('application')
       end
 
       def authentications
@@ -54,16 +66,30 @@ module EmberProj
       end        
 
       def notices
-        extras_notice
-        other_gems_notice
+        draw_border :thick
+        auth_notices!
+        extras_notice!
+        other_gems_notice!
       end
 
       protected
 
       include EmberProj::GemHelper
 
+      attr_reader :auth_notices
+
+      def auth_notices!
+        say "Authentication::", :green
+        say auth_notices.join("\n"), :green
+        say ""
+      end
+
+      def auth_notices
+        @auth_notices ||= []
+      end
+
       def auth_notice name
-        say "See: #{auth_repo name} for authentication configuration details", :green
+        auth_notices << "See: #{auth_repo name} for authentication configuration details"
       end
 
       def auth_repo name
@@ -79,7 +105,9 @@ module EmberProj
       end        
 
       def validate_auth!
-        unless auth_gems.include? auth
+        return if options[:auth].blank?
+
+        if use_auth_gems.empty?
           say "Not a supported authentication gem: #{auth}. Must be one of #{auth_gems}", :red
         end
       end
@@ -105,11 +133,10 @@ module EmberProj
         %w{ember-auth-rails ember-oauth2-rails}
       end
 
-      def move_to_app src, target
-        src = js_path(src)
-        target = js_app_path(target)
-
-        move_it! src, target
+      def move_to_app *paths
+        paths.flatten.each do |path|
+          move_it! js_path(path), js_app_path(path)
+        end
       end
 
       def move src, target
@@ -120,11 +147,18 @@ module EmberProj
       end
 
       def move_it! src, target
-        return unless File.exist? src
+        unless File.exist? src
+          say "No file found: #{strip_front src}"
+          return
+        end
 
         say_status :move, "#{src} -> #{target}"
 
         FileUtils.mv src, target
+      end
+
+      def strip_front path
+        "app/assets" + path.to_s.split(/app\/assets/)[1]
       end
 
       def js_app_path path                
@@ -132,7 +166,8 @@ module EmberProj
       end
 
       def js_path path
-        Rails.root.join('app/assets/javascripts', "#{path}.js")
+        path = "#{path}.js" unless path =~ /\.js$/
+        Rails.root.join('app/assets/javascripts', path)
       end
 
       def emblem?
@@ -144,17 +179,52 @@ module EmberProj
       end
 
       def extras_notice!
+        draw_border
         say extras_notice, :green
       end
 
       def extras_notice
-        %Q{The following extra libs are referenced in this setup: #{extras}
-Include these libs, using respective gems (#{gems_list}) or js files.
-You can also remove the libs you don't need from the application.js.coffee manifest}        
+        %Q{The following extra libs are referenced in this setup: 
+
+  #{join extras}
+
+Include these libs, using respective gems (#{join gems_list}) or the equivalent js files.
+
+Note: You can also remove the libs you don't need from the application.js.coffee manifest
+}        
+      end
+
+      def draw_border type = :thin
+        say border(type), :green
+      end
+
+      def nice text
+        border + text
+      end
+
+      def border type = :thin
+        border_char(type) * border_width + "\n"
+      end      
+
+      def border_char type
+        type == :thick ? "=" : '-'
+      end
+
+      def border_width
+        80
+      end
+
+      def join list
+        list.join ', '
+      end
+
+      def other_gems_notice!
+        draw_border
+        say other_gems_notice, :green
       end
 
       def other_gems_notice
-        say "Other useful gems: #{other_gems}", :green
+        "Other useful gems: #{other_gems}\n"
       end
 
       def other_gems

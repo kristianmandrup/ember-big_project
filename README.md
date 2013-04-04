@@ -37,7 +37,7 @@ Proposed (recommended) app structure for large Ember app.
   - application.js
 
   + app
-    - _loader.js
+    - app_loader.js
     + authentication
       + mixins  
 
@@ -121,12 +121,12 @@ App.deferReadiness()
 
 ```
 
-## app/_loader_.js
+## app/app_loader_.js
 
 Responsible for loading all the Ember app files
 
 ```javascript
-# app/_loader_.js
+# app/app_loader_.js
 
 #= require_self
 
