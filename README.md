@@ -229,6 +229,7 @@ Alternatively create a `vendor.js.coffee` which you require from `application.js
 
 Note: Some vendor libs will need to be required after `require app/app_loader`, if they hook into the Application classes you have defined (f.ex `rails.validations.ember` lib).
 
+* [ember-forms](https://github.com/codegram/ember-forms)
 * [ember-formbuilder](https://github.com/luan/ember-formbuilder)
 * [ember-easyForm](https://github.com/dockyard/ember-easyForm)
 * [ember-validations](https://github.com/dockyard/ember-validations)
