@@ -187,6 +187,29 @@ For Sorcery integration:
 Rails.application.config.sorcery.configure do |config|
   user.remember_me_httponly = false
 end
+``
+
+## Conventions
+
+All coffeescript files follow the ruby filename convention with underscore for readability :)
+
+All folders have a dedicated object, f.ex for the `routes` the object `App.Routes`, an Ember object that can contain aggregation information or shared functionality (including mixins etc.) for routes.
+
+All mixins should be postfixed with `Mix`
+
+```coffeescript
+App.Routes.RedirectGuestMix = Ember.Mixin.create
+  myMixingMethod: ->
+    console.log 'hello'
+```
+
+Extensions may be postfixed with `Ext` to clearly indicate it is an extension (if it makes sense).
+
+```coffeescript
+App.Models.CoolModelExt = DS.Model.extend
+  coolnessFactor: 0
+  myCool: ->
+    console.log "Awesome cool #{@coolnessFactor} :)"
 ```
 
 ## Vendor libs included

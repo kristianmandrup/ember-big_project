@@ -1,5 +1,5 @@
 # From http://blog.waymondo.com/2012-12-18-ember-dot-js-and-rails-authentication-gotchas/
-App.Router.RedirectGuest = Ember.Mixin.create
+App.Routes.RedirectGuestMix = Ember.Mixin.create
   setup: ->
     beforeFilterRedirection = Em.get(@, 'beforeFilterRedirection')
     if beforeFilterRedirection? and (redirection = beforeFilterRedirection())?
