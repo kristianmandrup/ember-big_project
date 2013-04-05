@@ -20,7 +20,7 @@ Or install it yourself as:
 
 *Important!!*
 
-This bootstrap generators expects that you have set up your Ember project using `ember:bootstrap` or similar generator. Before you execute `ember_proj:bootstrap`, please make sure you have comitted you project to version control, so you go revert in case you need to.
+This bootstrap generators expects that you have set up your Ember project using `ember:bootstrap` or similar generator. Before you execute `ember_proj:bootstrap`, please make sure you have comitted you project to version control, so you can revert back in case you need to.
 
 Command:
 
