@@ -168,6 +168,27 @@ Example:
 #= require_tree models/extensions
 ```
 
+## Routes
+
+Use this tip: http://livsey.org/blog/2012/10/09/breaking-up-your-routes-in-ember-dot-js/
+
+```
+App.Router = Ember.Router.extend({
+  root: Ember.Route.extend({
+    home: App.HomePageRoutes,
+    blog: App.BlogRoutes,
+    members: App.MembersRoutes,
+    files: App.FilesRoutes
+  })
+})
+```  
+
+Or this approach outdated with the latest Ember router?
+
+## Authentication and Authorization
+
+Check out the [ember-beercan](https://github.com/kristianmandrup/ember-beercan) project. A collection of Auth tools and references to blog posts etc. about how to achieve this.
+
 ## Test setup
 
 For easy test setup of your project, you can use the generators supplied by the [ember-konacha-rails](https://github.com/kristianmandrup/ember-konacha-rails) gem. 
