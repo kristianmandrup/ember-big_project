@@ -253,10 +253,13 @@ Note: Some vendor libs will need to be required after `require app/app_loader`, 
 
 See also: [formBuilder](http://luansantos.com/2012/03/19/introducing-ember-formbuilder/)
 
+A little `ember-logger.js` is also included ;)
+
 lib distros (pre-compiled):
 
 * [validations](https://github.com/dockyard/ember-builds/tree/master/validations)
 * [easyForm](https://github.com/dockyard/ember-builds/tree/master/easyForm)
+* [ember-bootstrap](https://github.com/emberjs-addons/ember-bootstrap)
 
 If you find one or more of these vendor libs are outdated, please make a patch with the updated lib and send me a pull request! Thanks :)
 
