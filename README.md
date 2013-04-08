@@ -168,22 +168,13 @@ Example:
 #= require_tree models/extensions
 ```
 
-## Routes
+## Pusher (websockets)
 
-Use this tip: http://livsey.org/blog/2012/10/09/breaking-up-your-routes-in-ember-dot-js/
+See this article: http://livsey.org/blog/2013/02/10/integrating-pusher-with-ember/
 
-```
-App.Router = Ember.Router.extend({
-  root: Ember.Route.extend({
-    home: App.HomePageRoutes,
-    blog: App.BlogRoutes,
-    members: App.MembersRoutes,
-    files: App.FilesRoutes
-  })
-})
-```  
+This way you can have the server push changes directly to the client and have the interface update for all clients as soon as the state of the models are updated on the server.
 
-Or this approach outdated with the latest Ember router?
+Using [Rails 4 streaming](http://blog.remarkablelabs.com/2012/12/live-streaming-rails-4-countdown-to-2013), this could be used for an effect similar to the Meteor framework.
 
 ## Authentication and Authorization
 
